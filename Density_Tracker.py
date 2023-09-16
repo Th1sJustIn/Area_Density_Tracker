@@ -13,10 +13,10 @@ def Run_Code():
     tracker = EuclideanDistTracker()
 
 
-    cap = cv2.VideoCapture("Test_Tracking2.mov")
+    cap = cv2.VideoCapture(0)
 
     # Object detection
-    object_detector = cv2.createBackgroundSubtractorMOG2(history=100, varThreshold=100)
+    object_detector = cv2.createBackgroundSubtractorMOG2(history=100, varThreshold=20)
 
     while True:
         ret, frame = cap.read()
@@ -25,7 +25,7 @@ def Run_Code():
            peopleCount = tracker.currNum
 
         ## Region of Interest (roi)
-        roi = frame[0 : 1080 , 400 : 1400]
+        roi = frame[0 : 1080 , 0 : 1920]
 
         #mask
         mask = object_detector.apply(roi)
@@ -36,7 +36,7 @@ def Run_Code():
         for cnt in contours:
             ##  Calculate area and remove walls
             area = cv2.contourArea(cnt)
-            if area > 35000:
+            if area > 95000:
                 # cv2.drawContours(roi, [cnt], -1, (0,255,0),2)
                 x,y,w,h = cv2.boundingRect(cnt)
                 cv2.rectangle(roi, (x,y), (x + w, y+h), (0,255,0), 8)
@@ -55,9 +55,9 @@ def Run_Code():
             cv2.putText(roi, str(id), (x,y-15), cv2.FONT_HERSHEY_PLAIN, 5, (255,0,0), 0)
             cv2.rectangle(roi, (x,y), (x+w,y+h),(0,255,0), 3)
 
-        cv2.imshow("roi", roi)
         #cv2.imshow('frame',frame)
         cv2.imshow("Mask", mask)
+        cv2.imshow("roi", roi)
 
         key = cv2.waitKey(30)
 
