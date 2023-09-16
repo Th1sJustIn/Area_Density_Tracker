@@ -19,19 +19,19 @@ class EuclideanDistTracker:
         if len(self.currPerson) >= 2:
 
             previous_value = self.currPerson[0]
+            current_value = self.currPerson[len(self.currPerson)-1]
             count = len(self.currPerson)
             negative = 0
             positive = 0
 
             # Loop through the dataset
-            for current_value in self.currPerson[1:]:  # Start from the second element
-                change = current_value[0] - previous_value[0]
-                if change > 0:
-                    positive += 1
-                elif change < 0:
-                    negative += 1
-
-                previous_value = current_value
+            #for current_value in self.currPerson[1:]:  # Start from the second element
+            change = current_value[0] - previous_value[0]
+            if change > 0:
+                positive += 1
+            elif change < 0:
+                negative += 1
+            #previous_value = current_value
 
             if negative > positive:
                 self.currNum -= 1
@@ -89,8 +89,8 @@ class EuclideanDistTracker:
         # Print "target gone" for IDs that have left the screen
         for id in left_screen_ids:
 
-            if(id != 0):
-                self.countPerson()
-                print(f"Target {id} gone\n")
+
+            self.countPerson()
+            print(f"Target {id} gone\n")
 
         return objects_bbs_ids
