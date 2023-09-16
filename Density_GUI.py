@@ -650,7 +650,7 @@ def Activate_GUI():
         text="Update Density",
         command=updateDensity
     )
-    run_button.place(x=130, y=10)
+    run_button.place(x=130, y=5)
    # update_button.place(x=130,y=650)
     window.resizable(True, True)
     window.mainloop()
